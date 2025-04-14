@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace SnakeC
 {
     // соединили 3 переменые в класс
+    // данные
     class Point
     {
         public int x;
@@ -15,8 +16,7 @@ namespace SnakeC
 
         // Конструктор
         public Point()
-        {
-            
+        {            
         }
 
         // хочу заполнить переменых относящихся к данной точке
@@ -30,6 +30,7 @@ namespace SnakeC
 
         // Для вывода на экран точеку с помощью кардинат и символа
         // Скрывает, как конкретно выводит на экран символ
+        // метод для вызова
         public void draw()
         {
             Console.SetCursorPosition(x, y);

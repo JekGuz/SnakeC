@@ -10,14 +10,28 @@ namespace SnakeC
     {
         static void Main(string[] args)
         {
-            Point p1 = new Point(1, 2, '*'); // вызвали конструктор. Инкапсуляция - это свойство системы обьяниняющие данные и методы
-            p1.draw();
+            Console.SetWindowSize(80, 25);  // Сначала выставляем размер окна - без этого не работает SetBufferSize
+            Console.SetBufferSize(80, 25);  // Затем размер буфера
 
-            Point p2 = new Point(4, 5, '#');
-            p2.draw();
 
+            // Рамочка отрисовка
+            //5 - left 10 right, 8 rida, sym +
+            HorizontalLine upline = new HorizontalLine(0, 78, 0, '-');
+            HorizontalLine downline = new HorizontalLine(0, 78, 24, '-');
+            VerticalLine leftline = new VerticalLine(0, 24, 0, '|');
+            VerticalLine rightline = new VerticalLine(0, 24, 78, '|');
+            upline.drow();
+            downline.drow();
+            leftline.drow();
+            rightline.drow();
+
+            // Отрисовка точек
+            Point p = new Point(4, 5, '*'); // вызвали конструктор. Инкапсуляция - это свойство системы обьяниняющие данные и методы
+            p.draw();
+
+           
             Console.ReadLine();
         }
 
-        }
+    }
 }
