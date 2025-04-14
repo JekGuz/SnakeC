@@ -27,14 +27,47 @@ namespace SnakeC
             sym = _sym;
         }
 
+        // новый конструктор, задаем точки с помощью другой точки
+        public Point(Point p)
+        {
+            x = p.x;
+            y = p.y;
+            sym = p.sym;
+        }
 
-        // Для вывода на экран точеку с помощью кардинат и символа
-        // Скрывает, как конкретно выводит на экран символ
-        // метод для вызова
+        // метод move который будет сдигать данную точку на растояни offset к direction
+        public void Move(int offset, Direction direction)
+        {
+            if (direction == Direction.RIGHT)
+            {
+                x = x + offset;
+            }
+            else if (direction == Direction.LEFT)
+            {
+                x = x - offset;
+            }
+            else if (direction == Direction.UP)
+            {
+                y = y + offset;
+            }
+            else if (direction == Direction.DOWN)
+            {
+                y = y - offset;
+            }
+        }         
+
+                // Для вывода на экран точеку с помощью кардинат и символа
+                // Скрывает, как конкретно выводит на экран символ
+                // метод для вызова
         public void draw()
         {
             Console.SetCursorPosition(x, y);
             Console.Write(sym);
+         }
+
+        public override string ToString()
+        {
+            return x + ", " + y + ", " + sym;
         }
     }
 }

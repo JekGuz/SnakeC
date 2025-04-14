@@ -27,8 +27,10 @@ namespace SnakeC
 
             // Отрисовка точек
             Point p = new Point(4, 5, '*'); // вызвали конструктор. Инкапсуляция - это свойство системы обьяниняющие данные и методы
-            p.draw();
 
+            // змейка
+            Snake snake = new Snake(p, 4, Direction.RIGHT);
+            snake.drow();
            
             Console.ReadLine();
         }
