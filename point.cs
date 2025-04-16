@@ -48,11 +48,11 @@ namespace SnakeC
             }
             else if (direction == Direction.UP)
             {
-                y = y + offset;
+                y = y - offset;
             }
             else if (direction == Direction.DOWN)
             {
-                y = y - offset;
+                y = y + offset;
             }
         }         
 
@@ -64,6 +64,13 @@ namespace SnakeC
             Console.SetCursorPosition(x, y);
             Console.Write(sym);
          }
+
+        // Удаляем хвостовой последний символ, чтобы сделать перемещение
+        public void Clear()
+        {
+            sym = ' ';
+            draw();
+        }
 
         public override string ToString()
         {
