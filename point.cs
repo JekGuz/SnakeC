@@ -65,6 +65,12 @@ namespace SnakeC
             Console.Write(sym);
          }
 
+        // проверка ка координаты
+        public bool IsHit(Point p)
+        {
+            return p.x == this.x && p.y == this.y;  // если ли пересечения с координатой текучей точкой и точкой координатой
+        }
+
         // Удаляем хвостовой последний символ, чтобы сделать перемещение
         public void Clear()
         {

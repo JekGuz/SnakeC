@@ -32,16 +32,31 @@ namespace SnakeC
             Snake snake = new Snake(p, 4, Direction.RIGHT);
             snake.drow();
 
-            // бесконечный цикл, будет выполняться вечно
-            while (true)
-            { 
+            // класс соотвествует генирации точек, чтобы появлялась еда для змейки
+            FoodCreator foodCreator = new FoodCreator(80, 25, '@'); // габарит экрана и символ еды
+            Point food = foodCreator.CreateFood();
+            food.draw();
+
+            // еще один цикл для еды
+            while (true) 
+            {
+                if (snake.Eat(food))
+                {
+                    food = foodCreator.CreateFood();
+                    food.draw();
+                }
+                else
+                {
+                    snake.Move();
+                }
+                Thread.Sleep(100);
+
                 if (Console.KeyAvailable) // была ли нажата клавиша с прошлого цикла
                 {
                     ConsoleKeyInfo key = Console.ReadKey();  // получаем значения клавиши и чему равна
                     snake.HandleKey(key.Key);
                 }
-                Thread.Sleep(100);
-                snake.Move();
+
             }
         }
 
