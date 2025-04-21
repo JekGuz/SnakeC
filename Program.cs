@@ -31,18 +31,18 @@ namespace SnakeC
             // змейка
             Snake snake = new Snake(p, 4, Direction.RIGHT);
             snake.drow();
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
-            snake.Move();
-            Thread.Sleep(300);
 
-
+            // бесконечный цикл, будет выполняться вечно
+            while (true)
+            { 
+                if (Console.KeyAvailable) // была ли нажата клавиша с прошлого цикла
+                {
+                    ConsoleKeyInfo key = Console.ReadKey();  // получаем значения клавиши и чему равна
+                    snake.HandleKey(key.Key);
+                }
+                Thread.Sleep(100);
+                snake.Move();
+            }
         }
 
     }
