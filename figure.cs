@@ -12,13 +12,32 @@ namespace SnakeC
     internal class figure
     {
         protected List<Point> pList;
-        public void drow()
+        public virtual void drow()  // виртуальный теперь, может переопределить и сделать свою дров
         {
             // цикл
             foreach (Point p in pList)
             {
                 p.draw();
             }
+        }
+
+        internal bool IsHit(figure figure)
+        {
+            foreach (var p in pList)
+            {
+                if (figure.IsHit(p))
+                    return true;
+            }
+            return false;
+        }
+        private bool IsHit(Point point) 
+        { 
+            foreach(var p in pList)
+            {
+                if ( p.IsHit(point)) 
+                    return true;
+            }
+            return false;
         }
     }
 }
