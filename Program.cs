@@ -58,7 +58,9 @@ namespace SnakeC
                 }
 
             }
-
+            Console.SetCursorPosition(0, 24); // где будем писать ( что игра закончилась)
+            Console.ForegroundColor = ConsoleColor.Green;  // каким цветом будем писать
+            Console.WriteLine("Game Over");
         }
 
     }
