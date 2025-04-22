@@ -16,10 +16,10 @@ namespace SnakeC
 
             // Рамочка отрисовка
             //5 - left 10 right, 8 rida, sym +
-            HorizontalLine upline = new HorizontalLine(0, mapWidth, -2, '-');
-            HorizontalLine downline = new HorizontalLine(0, mapWidth, -2, '-');
-            VerticalLine leftline = new VerticalLine(0, mapHeight, -1, '|');
-            VerticalLine rightline = new VerticalLine(0, mapHeight, -1, '|');
+            HorizontalLine upline = new HorizontalLine(0, mapWidth - 1, 0, '-');
+            HorizontalLine downline = new HorizontalLine(0, mapWidth - 1, mapHeight - 1, '-');
+            VerticalLine leftline = new VerticalLine(0, mapHeight - 1, 0, '|');
+            VerticalLine rightline = new VerticalLine(0, mapHeight - 1, mapWidth - 1, '|');
             Console.ForegroundColor = ConsoleColor.Red; // цвета для группы линий
             // добавляем в список
             wallList.Add(upline);

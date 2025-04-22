@@ -10,8 +10,10 @@ namespace SnakeC
     {
         static void Main(string[] args)
         {
+            Console.CursorVisible = false;    // убираю курсор
             Console.SetWindowSize(80, 25);  // Сначала выставляем размер окна - без этого не работает SetBufferSize
             Console.SetBufferSize(80, 25);  // Затем размер буфера
+
 
             // Столкновения змейки / и отрисовка рамочки
             Walls walls = new Walls(80, 25);
@@ -56,6 +58,7 @@ namespace SnakeC
                 }
 
             }
+
         }
 
     }

@@ -56,7 +56,7 @@ namespace SnakeC
         // не укусила ли змейка свой хвост
         internal bool IsHitTail()
         {
-            var head = pList.First();
+            var head = pList.Last();  // т.к. голова это последняя точка ( сделала себе большую ошибку
             for (int i = 0; i < pList.Count -2; i++)
             {
                 if(head.IsHit(pList[i]))
