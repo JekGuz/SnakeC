@@ -34,8 +34,8 @@ namespace SnakeC
             while (true) 
             {
                 if (walls.IsHit(snake) || snake.IsHitTail())
-                    { 
-                        break;
+                    {
+                    break;
                     }
 
                 if (snake.Eat(food))
