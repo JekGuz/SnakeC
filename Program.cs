@@ -10,6 +10,7 @@ namespace SnakeC
     {
         static void Main(string[] args)
         {
+            int score = 0; // добавляем счетчик на сколько сьедим
             Console.CursorVisible = false;    // убираю курсор
             Console.SetWindowSize(80, 25);  // Сначала выставляем размер окна - без этого не работает SetBufferSize
             Console.SetBufferSize(80, 25);  // Затем размер буфера
@@ -42,6 +43,7 @@ namespace SnakeC
 
                 if (snake.Eat(food))
                 {
+                    score++; // Увеличиваем счёт - счетчик выше
                     food = foodCreator.CreateFood();
                     food.draw();
                 }
@@ -58,8 +60,9 @@ namespace SnakeC
                 }
 
             }
-            Console.SetCursorPosition(0, 24); // где будем писать ( что игра закончилась)
+            Console.SetCursorPosition(0, 22); // где будем писать ( что игра закончилась)
             Console.ForegroundColor = ConsoleColor.Green;  // каким цветом будем писать
+            Console.Write($"Score: {score}    ");
             Console.WriteLine("Game Over");
 
             // Добавляем, чтобы записать результат
@@ -68,9 +71,11 @@ namespace SnakeC
                 string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Score.txt");
                 using (StreamWriter sw = new StreamWriter(path, true))
                 {
-                    Console.WriteLine("Sisesta result: ");
-                    string lause = Console.ReadLine();
-                    sw.WriteLine(lause);
+                    Console.SetCursorPosition(0, 23);
+                    Console.Write("Sisesta nimi: ");
+                    Console.SetCursorPosition(25, 23);
+                    string name = Console.ReadLine();
+                    sw.WriteLine($"{DateTime.Now} | {name} | Score: {score}");   // добавляем имя в фаил а так же сколько очков
                 }//@"..\..\..\Kuud.txt" automatne suletab
 
 
