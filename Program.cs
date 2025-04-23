@@ -61,6 +61,24 @@ namespace SnakeC
             Console.SetCursorPosition(0, 24); // где будем писать ( что игра закончилась)
             Console.ForegroundColor = ConsoleColor.Green;  // каким цветом будем писать
             Console.WriteLine("Game Over");
+
+            // Добавляем, чтобы записать результат
+            try
+            {
+                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Score.txt");
+                using (StreamWriter sw = new StreamWriter(path, true))
+                {
+                    Console.WriteLine("Sisesta result: ");
+                    string lause = Console.ReadLine();
+                    sw.WriteLine(lause);
+                }//@"..\..\..\Kuud.txt" automatne suletab
+
+
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Mingi viga failiga");
+            }
         }
 
     }
