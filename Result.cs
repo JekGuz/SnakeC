@@ -20,7 +20,8 @@ namespace SnakeC
 
             try
             {
-                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Score.txt");
+                Params p = new Params();
+                string path = Path.Combine(p.GetResourceFolder(), "Score.txt");  // (AppDomain.CurrentDomain.BaseDirectory, "Score.txt") - теперь у нас путь к папке resources
                 using (StreamWriter sw = new StreamWriter(path, true))
                 {
                     Console.SetCursorPosition(0, 23);
