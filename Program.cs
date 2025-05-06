@@ -12,8 +12,11 @@ namespace SnakeC
         {
             int score = 0; // добавляем счетчик на сколько сьедим
             Console.CursorVisible = false;    // убираю курсор
-            Console.SetWindowSize(80, 25);  // Сначала выставляем размер окна - без этого не работает SetBufferSize
-            Console.SetBufferSize(80, 25);  // Затем размер буфера
+            // увеличиваем окно, т.к. проблемы с старовым экраном из за большой надписи
+            Console.SetWindowSize(100, 30);  // Сначала выставляем размер окна - без этого не работает SetBufferSize   
+            Console.SetBufferSize(100, 30);  // Затем размер буфера
+
+            StartScreen.Show();  // <- ПРИВЕТСТВЕННЫЙ ЭКРАН
 
 
             // Столкновения змейки / и отрисовка рамочки
