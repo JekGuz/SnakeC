@@ -89,6 +89,5 @@ namespace SnakeC
 
             Console.ResetColor(); // ресет колор
         }
-
     }
 }

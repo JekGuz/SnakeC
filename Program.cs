@@ -41,6 +41,13 @@ namespace SnakeC
             Console.ForegroundColor = level.SnakeColor; // заменяем, просто белую, т.к. теперь уровни будут придавать цвет, потом римуем
             snake.drow();
 
+            // отображения счета во время игры
+            static void ShowScore(int score)
+            {
+                Console.SetCursorPosition(0, 0); //верхний левый угол
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write($"Score: {score}   "); // добавим пробелы, чтобы затирать старые значения
+            }
 
             // класс соотвествует генирации точек, чтобы появлялась еда для змейки
             FoodCreator foodCreator = new FoodCreator(80, 25, '@'); // габарит экрана и символ еды
@@ -58,7 +65,9 @@ namespace SnakeC
                 if (snake.Eat(food))
                 {
                     score++;
+                    ShowScore(score);
                     level.UpdateLevel(score);
+                    
 
                     Console.ForegroundColor = level.FoodColor;
                     food = foodCreator.CreateFood();
