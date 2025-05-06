@@ -16,6 +16,12 @@ namespace SnakeC
             Console.SetWindowSize(100, 30);  // Сначала выставляем размер окна - без этого не работает SetBufferSize   
             Console.SetBufferSize(100, 30);  // Затем размер буфера
 
+            // звук фона
+            Params param = new Params(); // путь к папке resources
+            Sounds sound = new Sounds(param.GetResourceFolder()); // передаём путь
+            sound.PlayBackground(); // запускаем фоновую музыку
+
+            // стартовый экран 
             if (!StartScreen.Show())   // если в startscreen выбирут 3 тогда вернется false и програма завершиться
             {
                 return; // пользователь выбрал Exit → игра не запускается
@@ -72,7 +78,9 @@ namespace SnakeC
                 }
 
             }
-            Result.Save(score);
+            sound.Stop();           // остановить фоновую музыку
+            sound.PlayGameOver();   // проиграть звук окончания
+            Result.Save(score);     // сохранить результат
         }
 
     }
