@@ -17,7 +17,7 @@ namespace SnakeC
             Console.SetBufferSize(100, 30);  // Затем размер буфера
 
             StartScreen.Show();  // <- ПРИВЕТСТВЕННЫЙ ЭКРАН
-
+            Level level = new Level(); // начнем добавлять уровень ( начнем читать наш уровень)
 
             // Столкновения змейки / и отрисовка рамочки
             Walls walls = new Walls(80, 25);
@@ -28,8 +28,9 @@ namespace SnakeC
 
             // змейка
             Snake snake = new Snake(p, 4, Direction.RIGHT);
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = level.SnakeColor; // заменяем, просто белую, т.к. теперь уровни будут придавать цвет, потом римуем
             snake.drow();
+
 
             // класс соотвествует генирации точек, чтобы появлялась еда для змейки
             FoodCreator foodCreator = new FoodCreator(80, 25, '@'); // габарит экрана и символ еды
@@ -46,15 +47,19 @@ namespace SnakeC
 
                 if (snake.Eat(food))
                 {
-                    score++; // Увеличиваем счёт - счетчик выше
+                    score++;
+                    level.UpdateLevel(score);
+
+                    Console.ForegroundColor = level.FoodColor;
                     food = foodCreator.CreateFood();
-                    food.draw();
+                    food.draw(); // <-- только здесь
                 }
                 else
                 {
+                    Console.ForegroundColor = level.SnakeColor;
                     snake.Move();
                 }
-                Thread.Sleep(100);
+                Thread.Sleep(level.Speed); // чем меньше число, тем быстрее движется змейка.
 
                 if (Console.KeyAvailable) // была ли нажата клавиша с прошлого цикла
                 {
