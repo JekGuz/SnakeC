@@ -20,8 +20,8 @@ namespace SnakeC
 
             try
             {
-                Params p = new Params();
-                string path = Path.Combine(p.GetResourceFolder(), "Score.txt");  // (AppDomain.CurrentDomain.BaseDirectory, "Score.txt") - теперь у нас путь к папке resources
+                Params param = new Params();
+                string path = Path.Combine(param.GetResourceFolder(), "Score.txt");  // (AppDomain.CurrentDomain.BaseDirectory, "Score.txt") - теперь у нас путь к папке resources
                 using (StreamWriter sw = new StreamWriter(path, true))
                 {
                     Console.SetCursorPosition(0, 23);
@@ -71,7 +71,9 @@ namespace SnakeC
             Console.ForegroundColor = ConsoleColor.Cyan; // будем красиво выделять например голубым
             Console.WriteLine("Previous Results:\n");
 
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Score.txt"); // путь к файлу
+            //string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Score.txt"); // путь к файлу
+            Params param = new Params();
+            string path = Path.Combine(param.GetResourceFolder(), "Score.txt");
             if (File.Exists(path))  // проверяем есть ли этот фаил
             {
                 string[] lines = File.ReadAllLines(path);
