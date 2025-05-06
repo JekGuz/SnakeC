@@ -68,30 +68,7 @@ namespace SnakeC
                 }
 
             }
-            Console.SetCursorPosition(0, 22); // где будем писать ( что игра закончилась)
-            Console.ForegroundColor = ConsoleColor.Green;  // каким цветом будем писать
-            Console.Write($"Score: {score}    ");
-            Console.WriteLine("Game Over");
-
-            // Добавляем, чтобы записать результат
-            try
-            {
-                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Score.txt");
-                using (StreamWriter sw = new StreamWriter(path, true))
-                {
-                    Console.SetCursorPosition(0, 23);
-                    Console.Write("Sisesta nimi: ");
-                    Console.SetCursorPosition(25, 23);
-                    string name = Console.ReadLine();
-                    sw.WriteLine($"{DateTime.Now} | {name} | Score: {score}");   // добавляем имя в фаил а так же сколько очков
-                }//@"..\..\..\Kuud.txt" automatne suletab
-
-
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Mingi viga failiga");
-            }
+            Result.Save(score);
         }
 
     }
