@@ -13,6 +13,7 @@ namespace SnakeC
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
 
+            // логотип можно сделать тут https://patorjk.com/software/taag/#p=display&f=Bloody&t=Snake%20Game
             string[] logo = new string[]
             {
                 @" ██████  ███▄    █  ▄▄▄       ██ ▄█▀▓█████      ▄████  ▄▄▄       ███▄ ▄███▓▓█████",
@@ -37,8 +38,7 @@ namespace SnakeC
                 Console.WriteLine(logo[i]);
             }
 
-
-
+            // выводим меню
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.SetCursorPosition(centerX + 12, startY + logo.Length + 2);
             Console.WriteLine("1 - Start Game");
@@ -53,7 +53,18 @@ namespace SnakeC
                 ConsoleKeyInfo key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.D1 || key.Key == ConsoleKey.NumPad1)
                 {
-                    FadeOutCharByChar(logo, centerX, startY);
+                    // объединяем логотип и меню для стирания
+                    string[] fullScreen = logo.Concat(new string[]
+                    {
+                        "",
+                        "",
+                        "1 - Start Game",
+                        "2 - Exit"
+                    }).ToArray();
+
+                    // стираем всё с экрана
+                    FadeOutCharByChar(fullScreen, centerX, startY);
+                    Console.Clear();  // очищаем после анимации
                     return true;
                 }
                 else if (key.Key == ConsoleKey.D2 || key.Key == ConsoleKey.NumPad2 || key.Key == ConsoleKey.Escape)
@@ -62,7 +73,9 @@ namespace SnakeC
                 }
             }
         }
-    private static void FadeOutCharByChar(string[] logo, int startX, int startY)
+
+        // метод для анимации затухания по символам
+        private static void FadeOutCharByChar(string[] logo, int startX, int startY)
         {
             for (int y = 0; y < logo.Length; y++)
             {
@@ -83,5 +96,5 @@ namespace SnakeC
 
             Console.ResetColor();
         }
-    } 
+    }
 }
