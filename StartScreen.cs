@@ -44,7 +44,10 @@ namespace SnakeC
             Console.WriteLine("1 - Start Game");
 
             Console.SetCursorPosition(centerX + 12, startY + logo.Length + 3);
-            Console.WriteLine("2 - Exit");
+            Console.WriteLine("2 - View Results");
+
+            Console.SetCursorPosition(centerX + 12, startY + logo.Length + 4);
+            Console.WriteLine("3 - Exit");
 
             Console.ResetColor();
 
@@ -59,7 +62,8 @@ namespace SnakeC
                         "",
                         "",
                         "1 - Start Game",
-                        "2 - Exit"
+                        "2 - View Results",
+                        "3 - Exit"
                     }).ToArray();
 
                     // стираем всё с экрана
@@ -67,7 +71,15 @@ namespace SnakeC
                     Console.Clear();  // очищаем после анимации
                     return true;
                 }
-                else if (key.Key == ConsoleKey.D2 || key.Key == ConsoleKey.NumPad2 || key.Key == ConsoleKey.Escape)
+                else if (key.Key == ConsoleKey.D2 || key.Key == ConsoleKey.NumPad2)
+                {
+                    Console.Clear();
+                    Result.ShowAll();
+                    Console.WriteLine("\nPress any key to return...");
+                    Console.ReadKey(true);
+                    return Show();
+                }
+                else if (key.Key == ConsoleKey.D3 || key.Key == ConsoleKey.NumPad3 || key.Key == ConsoleKey.Escape)
                 {
                     return false;
                 }

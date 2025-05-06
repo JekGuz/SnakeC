@@ -16,7 +16,11 @@ namespace SnakeC
             Console.SetWindowSize(100, 30);  // Сначала выставляем размер окна - без этого не работает SetBufferSize   
             Console.SetBufferSize(100, 30);  // Затем размер буфера
 
-            StartScreen.Show();  // <- ПРИВЕТСТВЕННЫЙ ЭКРАН
+            if (!StartScreen.Show())   // если в startscreen выбирут 3 тогда вернется false и програма завершиться
+            {
+                return; // пользователь выбрал Exit → игра не запускается
+            }
+
             Level level = new Level(); // начнем добавлять уровень ( начнем читать наш уровень)
 
             // Столкновения змейки / и отрисовка рамочки

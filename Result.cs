@@ -65,5 +65,27 @@ namespace SnakeC
 
             Console.ResetColor();
         }
+        public static void ShowAll()     // показывает игроку всю историю его игр
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan; // будем красиво выделять например голубым
+            Console.WriteLine("Previous Results:\n");
+
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Score.txt"); // путь к файлу
+            if (File.Exists(path))  // проверяем есть ли этот фаил
+            {
+                string[] lines = File.ReadAllLines(path);
+                foreach (var line in lines)
+                {
+                    Console.WriteLine(line); // считываем все сточки
+                }
+            }
+            else
+            {
+                Console.WriteLine("No results found yet.");  // это плохо файл поврежден или его нет
+            }
+
+            Console.ResetColor(); // ресет колор
+        }
+
     }
 }
