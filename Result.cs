@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -115,23 +116,23 @@ namespace SnakeC
         }
 
         // метод для вывода топ-3 игроков
-        private static void ShowTop3(string path)
+        private static void ShowTop3(string path)      // Объявление метода, который принимает путь к файлу Score.txt (путь передаётся из метода Save()).
         {
             try
             {
-                List<string> lines = File.ReadAllLines(path).ToList();
-                List<PlayerResult> playerResults = new List<PlayerResult>();
+                List<string> lines = File.ReadAllLines(path).ToList();  // Читает все строки из файла Score.txt
+                List<PlayerResult> playerResults = new List<PlayerResult>();  // Создаём пустой список объектов PlayerResult
 
-                foreach (string line in lines)
+                foreach (string line in lines)  // Начинаем перебирать каждую строку в списке строк lines
                 {
                     try
                     {
-                        string[] parts = line.Split('|'); // разбиваем строку
-                        string name = parts[1].Trim(); // берём имя
-                        string scoreStr = parts[2].Trim().Replace("Score: ", ""); // убираем "Score: "
-                        int score = int.Parse(scoreStr); // парсим
+                        string[] parts = line.Split('|'); // разбиваем строку по частям
+                        string name = parts[1].Trim(); // Извлекаем имя игрока и удаляем пробелы по краям с помощью .Trim()
+                        string scoreStr = parts[2].Trim().Replace("Score: ", ""); // Извлекаем строку с очками и убираем текст
+                        int score = int.Parse(scoreStr); // Преобразуем строку "7" в целое число 7
 
-                        playerResults.Add(new PlayerResult { Name = name, Score = score });
+                        playerResults.Add(new PlayerResult { Name = name, Score = score });   // Создаём новый объект PlayerResult, записываем туда имя и счёт, и добавляем в список playerResults.
                     }
                     catch
                     {
@@ -139,10 +140,11 @@ namespace SnakeC
                     }
                 }
 
-                playerResults = playerResults
-                    .OrderByDescending(p => p.Score) // сортировка
-                    .Take(3) // только 3
-                    .ToList();
+                playerResults = playerResults  // Это означает, что мы перезаписываем переменную playerResults. То есть мы изменим список, оставив в нём только топ-3 отсортированных игрока
+                    .OrderByDescending(p => p.Score) // сортировка    // Сортируем список по убыванию очков (Score)
+                    .Take(3) // Берём только первые 3 элемента
+                    .ToList();   // Преобразуем результат обратно в список List<PlayerResult>
+
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("\nTop 3 Players:");
