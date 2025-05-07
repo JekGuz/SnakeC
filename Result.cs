@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SnakeC
@@ -21,7 +23,8 @@ namespace SnakeC
             try
             {
                 Params param = new Params();
-                string path = Path.Combine(param.GetResourceFolder(), "Score.txt");  // (AppDomain.CurrentDomain.BaseDirectory, "Score.txt") - теперь у нас путь к папке resources
+                string path = Path.Combine(param.GetResourceFolder(), "Score.txt");  // путь к Score.txt в папке resources
+
                 using (StreamWriter sw = new StreamWriter(path, true))
                 {
                     Console.SetCursorPosition(0, 23);
@@ -30,13 +33,31 @@ namespace SnakeC
                     string name = Console.ReadLine();
                     sw.WriteLine($"{DateTime.Now} | {name} | Score: {score}");
                 }
+
+                // Показываем топ-3 игроков после записи результата
+                ShowTop3(path);
+
+                // Вопрос: начать ли игру заново
+                Console.WriteLine("\nDo you want to play again? (Y/N)");
+                ConsoleKeyInfo key = Console.ReadKey(true); // ждём ответ пользователя
+                if (key.Key == ConsoleKey.Y)
+                {
+                    Console.Clear();
+                    Program.Main(Array.Empty<string>()); // вызываем Main снова
+                }
+                else
+                {
+                    Console.WriteLine("Goodbye!");
+                    Thread.Sleep(1500);
+                }
             }
             catch (Exception)
             {
-                Console.WriteLine("Mingi viga failiga");
+                Console.WriteLine("Mingi viga failiga"); // если проблема с файлом
             }
         }
 
+        // отдельный метод показа ASCII надписи GAME OVER
         private static void ShowGameOverLogo()
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -64,30 +85,83 @@ namespace SnakeC
                 Console.WriteLine(line);
             }
 
-            Console.ResetColor();
+            Console.ResetColor(); // ресет цвета
         }
-        public static void ShowAll()     // показывает игроку всю историю его игр
+
+        // показывает всю историю без сортировки
+        public static void ShowAll()
         {
-            Console.ForegroundColor = ConsoleColor.Cyan; // будем красиво выделять например голубым
+            Console.ForegroundColor = ConsoleColor.Cyan; // делаем текст голубым
             Console.WriteLine("Previous Results:\n");
 
-            //string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Score.txt"); // путь к файлу
-            Params param = new Params();
-            string path = Path.Combine(param.GetResourceFolder(), "Score.txt");
-            if (File.Exists(path))  // проверяем есть ли этот фаил
+            Params param = new Params(); // объект для получения пути
+            string path = Path.Combine(param.GetResourceFolder(), "Score.txt"); // путь к Score.txt
+
+            if (File.Exists(path))
             {
-                string[] lines = File.ReadAllLines(path);
-                foreach (var line in lines)
+                string[] lines = File.ReadAllLines(path); // читаем построчно
+
+                foreach (string line in lines)
                 {
-                    Console.WriteLine(line); // считываем все сточки
+                    Console.WriteLine(line); // выводим построчно
                 }
             }
             else
             {
-                Console.WriteLine("No results found yet.");  // это плохо файл поврежден или его нет
+                Console.WriteLine("No results found yet.");  // если файл не найден
             }
 
-            Console.ResetColor(); // ресет колор
+            Console.ResetColor(); // возвращаем стандартный цвет
+        }
+
+        // метод для вывода топ-3 игроков
+        private static void ShowTop3(string path)
+        {
+            try
+            {
+                List<string> lines = File.ReadAllLines(path).ToList();
+                List<PlayerResult> playerResults = new List<PlayerResult>();
+
+                foreach (string line in lines)
+                {
+                    try
+                    {
+                        string[] parts = line.Split('|'); // разбиваем строку
+                        string name = parts[1].Trim(); // берём имя
+                        string scoreStr = parts[2].Trim().Replace("Score: ", ""); // убираем "Score: "
+                        int score = int.Parse(scoreStr); // парсим
+
+                        playerResults.Add(new PlayerResult { Name = name, Score = score });
+                    }
+                    catch
+                    {
+                        // если строка повреждена — пропускаем
+                    }
+                }
+
+                playerResults = playerResults
+                    .OrderByDescending(p => p.Score) // сортировка
+                    .Take(3) // только 3
+                    .ToList();
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("\nTop 3 Players:");
+                foreach (var p in playerResults)
+                {
+                    Console.WriteLine($"{p.Name} - {p.Score}");
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Ошибка при выводе топ игроков.");
+            }
+        }
+
+        // Вспомогательный класс для хранения результата игрока
+        internal class PlayerResult
+        {
+            public string Name { get; set; } = string.Empty;
+            public int Score { get; set; }
         }
     }
 }

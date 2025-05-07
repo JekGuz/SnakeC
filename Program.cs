@@ -8,7 +8,7 @@ namespace SnakeC
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)   // нужен он public чтобы его видил result т.к. хочу выводить игроков
         {
             int score = 0; // добавляем счетчик на сколько сьедим
             Console.CursorVisible = false;    // убираю курсор
